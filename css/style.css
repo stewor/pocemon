@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(64, 62, 58);
+  color: whitesmoke;
+  font-style: italic;
+}
+
+/*-------header--------*/
+.page {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  /* background-color: yellow; */
+}
+
+header {
+  text-align: center;
+  margin: 5vh 0 5vh 0;
+}
+
+.header_title {
+  text-transform: uppercase;
+  color: cadetblue;
+}
+
+.header_title-large {
+  color: yellow;
+  font-size: large;
+}
+
+/*--------main------------*/
+main {
+  position: relative;
+}
+
+.main_cards {
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+  grid-gap: 5px 5px;
+}
+
+.main_card {
+  width: 100%;
+}
+
+.main_card--pointer {
+  cursor: pointer;
+}
+
+.main_img {
+  max-width: 100%;
+
+}
+
+.main_card--guessed {
+  opacity: 0.4;
+}
+
+.main_score {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.main_score-btn {
+  font-size: 24px;
+  background-color: rgb(64, 62, 58);
+  color: rgb(252, 251, 227);
+  outline: none;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: .3s;
+  font-weight: 700;
+}
+
+.main_score-btn:hover {
+  transform: scale(1.1);
+  color: rgb(245, 197, 7);
+}
+
+.btn_main--off {
+  cursor: default;
+}
+
+/*------footer-------*/
+footer {
+  margin-top: 10px;
+  text-align: right;
+  color: #777;
+  cursor: pointer;
+
+}
+
+.footer_href {
+  text-decoration: none;
+  color: beige;
+}
