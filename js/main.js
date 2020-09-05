@@ -13,6 +13,8 @@ class Pocemon {
         this.hit = 0;
         this.tabCardsRan = [];
         this.tabCards = [];
+        this.timeGame = 0;
+        this.stopInterval = null;
     }
     async fetchCards() {
         let idd = 0;
@@ -63,8 +65,15 @@ class Pocemon {
     playAgain() {
         location.reload();
     }
-    btnScore() {
-        this.btn.textContent = "Score: " + this.score;
+    startGameTime = () => {
+        this.stopInterval = setInterval(() => {
+            this.timeGame++;
+            if (this.timeGame <= 60) {
+                this.btn.textContent = "Move: " + this.score + " Time: " + this.timeGame + "sek";
+            } else {
+                this.btn.textContent = `Move:  ${this.score} Time: ${Math.floor(this.timeGame / 60)}min ${this.timeGame % 60}sek`;
+            }
+        }, 1000)
     }
     checkCard(e) {
         this.tabCardsRan[e.target.dataset.item].hidden = false;
@@ -76,8 +85,6 @@ class Pocemon {
         }
         else if (this.tempTwo.length > 0) {
             this.displayCards();
-            console.log(e.target.dataset.item);
-            console.log(this.tempTwo[0]);
             setTimeout(() => {
                 this.tabCardsRan[this.tempTwo[0]].hidden = true;
                 this.tabCardsRan[e.target.dataset.item].hidden = true;
@@ -85,10 +92,12 @@ class Pocemon {
 
                 if (this.tabCardsRan[e.target.dataset.item].id === this.tabCardsRan[this.tempTwo[0]].id) {
                     this.hit++;
+                    this.score++;
                     this.tabCardsRan[e.target.dataset.item].guessed = true;
                     this.tabCardsRan[this.tempTwo[0]].guessed = true;
-                    if (this.hit >= 9) {
-                        this.btn.textContent = "YOU WIN Score: " + this.score + " Play again?";
+                    if (this.hit >= 2) {
+                        clearInterval(this.stopInterval);
+                        this.btn.textContent = `Move:  ${this.score} Time: ${Math.floor(this.timeGame / 60)}min ${this.timeGame % 60}sek Play again?`;
                         this.btn.classList.remove('btn_main--off');
                         this.btn.addEventListener('click', this.playAgain)
                     }
@@ -96,7 +105,6 @@ class Pocemon {
                     this.score++;
                     this.tabCardsRan[e.target.dataset.item].click = true;
                     this.tabCardsRan[this.tempTwo[0]].click = true;
-                    this.btnScore();
                 }
                 this.tempTwo.length = 0;
                 this.displayCards();
@@ -123,14 +131,13 @@ class Pocemon {
         })
     }
     hiddenFalse = () => {
-        this.btnScore();
         this.tabCardsRan.forEach(ta => {
             ta.hidden = false;
         })
         this.btn.removeEventListener('click', this.hiddenFalse);
         this.btn.classList.add('btn_main--off');
         this.displayCards();
-
+        this.startGameTime();
         setTimeout(() => {
             this.tabCardsRan.forEach(ta => {
                 ta.hidden = true;

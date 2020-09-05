@@ -55,11 +55,10 @@ main {
 
 .main_img {
   max-width: 100%;
-
 }
 
 .main_card--guessed {
-  opacity: 0.4;
+  opacity: 0.3;
 }
 
 .main_score {
@@ -76,14 +75,8 @@ main {
   outline: none;
   border: none;
   cursor: pointer;
-  text-transform: uppercase;
-  transition: .3s;
+  transition: 0.3s;
   font-weight: 700;
-}
-
-.main_score-btn:hover {
-  transform: scale(1.1);
-  color: rgb(245, 197, 7);
 }
 
 .btn_main--off {
@@ -96,7 +89,6 @@ footer {
   text-align: right;
   color: #777;
   cursor: pointer;
-
 }
 
 .footer_href {
