@@ -95,7 +95,7 @@ class Pocemon {
                     this.score++;
                     this.tabCardsRan[e.target.dataset.item].guessed = true;
                     this.tabCardsRan[this.tempTwo[0]].guessed = true;
-                    if (this.hit >= 2) {
+                    if (this.hit >= this.pageSize) {
                         clearInterval(this.stopInterval);
                         this.btn.textContent = `Move:  ${this.score} Time: ${Math.floor(this.timeGame / 60)}min ${this.timeGame % 60}sek Play again?`;
                         this.btn.classList.remove('btn_main--off');
