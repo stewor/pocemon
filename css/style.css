@@ -4,9 +4,13 @@
   box-sizing: border-box;
 }
 
+*:focus {
+  outline: none;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: rgb(64, 62, 58);
+  background-color: #302f2e;
   color: whitesmoke;
   font-style: italic;
 }
@@ -14,9 +18,8 @@ body {
 /*-------header--------*/
 .page {
   position: relative;
-  max-width: 900px;
+  max-width: 600px;
   margin: 0 auto;
-  /* background-color: yellow; */
 }
 
 header {
@@ -26,7 +29,8 @@ header {
 
 .header_title {
   text-transform: uppercase;
-  color: cadetblue;
+  color: #f5f0ef;
+  text-shadow: 4px 4px 2px rgba(243, 255, 69, 0.33);
 }
 
 .header_title-large {
@@ -41,12 +45,15 @@ main {
 
 .main_cards {
   display: grid;
-  grid-template-columns: repeat(6, auto);
+  grid-template-columns: repeat(4, auto);
   grid-gap: 5px 5px;
 }
 
 .main_card {
   width: 100%;
+  border-radius: 6%;
+  overflow: hidden;
+  transition: all 0.3s;
 }
 
 .main_card--pointer {
@@ -55,28 +62,36 @@ main {
 
 .main_img {
   max-width: 100%;
+  border-radius: 6%;
 }
 
 .main_card--guessed {
-  opacity: 0.3;
+  opacity: 0.4;
+}
+
+.main_card--shadow {
+  box-shadow: 0px 0px 5px yellow;
+}
+
+.main_card--rotate {
+  transform: rotateY(80deg);
 }
 
 .main_score {
   margin-top: 10px;
   text-align: center;
-  font-size: 26px;
   cursor: pointer;
 }
 
 .main_score-btn {
   font-size: 24px;
-  background-color: rgb(64, 62, 58);
-  color: rgb(252, 251, 227);
+  background-color: #302f2e;
+  color: #ecd716;
   outline: none;
   border: none;
   cursor: pointer;
   transition: 0.3s;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .btn_main--off {
@@ -87,11 +102,18 @@ main {
 footer {
   margin-top: 10px;
   text-align: right;
-  color: #777;
+  color: yellow;
   cursor: pointer;
+  font-size: 18px;
+  opacity: .6;
 }
 
-.footer_href {
+a {
+  color: beige;
+  text-decoration: none;
+}
+
+/* .footer_href {
   text-decoration: none;
   color: beige;
-}
+} */

@@ -1,9 +1,9 @@
 class Pocemon {
     constructor() {
         this.API_ENDPOINT = "https://api.pokemontcg.io/v1/cards?";
-        this.pageSize = 9;
+        this.pageSize = 6;
         this.currentPage = null;
-        this.srcHidden = "img/poc.jpg";
+        this.srcHidden = "img/poc.png";
         this.tabTwo = [];
         this.tempTwo = [];
         this.cards = document.querySelector('[data-cards]');
@@ -68,28 +68,29 @@ class Pocemon {
     startGameTime = () => {
         this.stopInterval = setInterval(() => {
             this.timeGame++;
-            if (this.timeGame <= 60) {
-                this.btn.textContent = "Move: " + this.score + " Time: " + this.timeGame + "sek";
-            } else {
-                this.btn.textContent = `Move:  ${this.score} Time: ${Math.floor(this.timeGame / 60)}min ${this.timeGame % 60}sek`;
-            }
+            this.btn.textContent = "Move: " + this.score + " Time: " + this.timeGame + "sec";
         }, 1000)
     }
     checkCard(e) {
         this.tabCardsRan[e.target.dataset.item].hidden = false;
         this.tabCardsRan[e.target.dataset.item].click = false;
         if (this.tempTwo.length === 0) {
-
             this.tempTwo.push(e.target.dataset.item);
-            this.displayCards();
+            setTimeout(() => {
+                this.displayCards();
+            }, 300)
+            e.target.parentNode.classList.add('main_card--rotate');
+
         }
         else if (this.tempTwo.length > 0) {
-            this.displayCards();
+            setTimeout(() => {
+                this.displayCards();
+            }, 300)
+            e.target.parentNode.classList.add('main_card--rotate');
             setTimeout(() => {
                 this.tabCardsRan[this.tempTwo[0]].hidden = true;
                 this.tabCardsRan[e.target.dataset.item].hidden = true;
                 this.tabCardsRan[e.target.dataset.item].click = false;
-
                 if (this.tabCardsRan[e.target.dataset.item].id === this.tabCardsRan[this.tempTwo[0]].id) {
                     this.hit++;
                     this.score++;
@@ -97,7 +98,7 @@ class Pocemon {
                     this.tabCardsRan[this.tempTwo[0]].guessed = true;
                     if (this.hit >= this.pageSize) {
                         clearInterval(this.stopInterval);
-                        this.btn.textContent = `Move:  ${this.score} Time: ${Math.floor(this.timeGame / 60)}min ${this.timeGame % 60}sek Play again?`;
+                        this.btn.textContent = `Move:  ${this.score} Time:  ${this.timeGame}sec Play again?`;
                         this.btn.classList.remove('btn_main--off');
                         this.btn.addEventListener('click', this.playAgain)
                     }
@@ -110,6 +111,12 @@ class Pocemon {
                 this.displayCards();
             }, 1000);
         }
+    }
+    addMouseOver = (card) => {
+        this.cardsListner.forEach(card => {
+            card.children[0].classList.remove('main_card--shadow');
+        })
+        card.children[0].classList.add('main_card--shadow');
     }
     displayCards() {
         this.cards.innerHTML = "";
@@ -124,8 +131,9 @@ class Pocemon {
             if (this.tabCardsRan[card.children[0].dataset.item].click) {
                 card.addEventListener('click', this.checkCard.bind(this));
                 card.classList.add('main_card--pointer');
+                card.addEventListener('mouseover', () => this.addMouseOver(card));
             } else {
-                card.removeEventListener('click', this.checkCard.bind(this));
+                card.removeEventListener('mouseover', this.addMouseOver);
             }
 
         })
@@ -137,12 +145,13 @@ class Pocemon {
         this.btn.removeEventListener('click', this.hiddenFalse);
         this.btn.classList.add('btn_main--off');
         this.displayCards();
-        this.startGameTime();
+        this.btn.textContent = "Wait..."
         setTimeout(() => {
             this.tabCardsRan.forEach(ta => {
                 ta.hidden = true;
                 ta.click = true;
             })
+            this.startGameTime();
             this.displayCards();
         }, 3000);
     }
