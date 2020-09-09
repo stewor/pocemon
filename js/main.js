@@ -77,14 +77,14 @@ class Pocemon {
         if (this.tempTwo.length === 0) {
             this.tempTwo.push(e.target.dataset.item);
             setTimeout(() => {
-                this.displayCards();
+                this.displayCards(e.target.dataset.item);
             }, 300)
             e.target.parentNode.classList.add('main_card--rotate');
 
         }
         else if (this.tempTwo.length > 0) {
             setTimeout(() => {
-                this.displayCards();
+                this.displayCards(e.target.dataset.item);
             }, 300)
             e.target.parentNode.classList.add('main_card--rotate');
             setTimeout(() => {
@@ -118,12 +118,12 @@ class Pocemon {
         })
         card.children[0].classList.add('main_card--shadow');
     }
-    displayCards() {
+    displayCards(item) {
         this.cards.innerHTML = "";
         let id = 0;
         this.tabCardsRan.forEach(tab => {
             this.cards.innerHTML += `<div class="main_card " data-id >
-                <img src=${tab.hidden ? this.srcHidden : tab.imageUrl} class="main_img ${tab.guessed ? "main_card--guessed" : ""} ${tab.hidden ? "main_card--hidden" : ""} " alt="pocemon" data-item=${id++}>
+                <img src=${tab.hidden ? this.srcHidden : tab.imageUrl} class="main_img ${tab.guessed ? "main_card--guessed" : ""} ${tab.hidden ? "main_card--hidden" : ""}   " alt="pocemon" data-item=${id++}>
                 </div>`
         })
         this.cardsListner = document.querySelectorAll('[data-id]');
@@ -137,6 +137,17 @@ class Pocemon {
             }
 
         })
+
+        if (item) {
+            this.cardsListner.forEach(card => {
+                if (item === card.children[0].dataset.item) {
+                    card.children[0].classList.add('main_card--animation');
+                    console.log(card.children[0].classList);
+                }
+
+
+            })
+        }
     }
     hiddenFalse = () => {
         this.tabCardsRan.forEach(ta => {

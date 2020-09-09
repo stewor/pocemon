@@ -56,6 +56,10 @@ main {
   transition: all 0.3s;
 }
 
+.main_card--animation {
+  animation: rotate 1s;
+}
+
 .main_card--pointer {
   cursor: pointer;
 }
@@ -63,6 +67,7 @@ main {
 .main_img {
   max-width: 100%;
   border-radius: 6%;
+
 }
 
 .main_card--guessed {
@@ -113,7 +118,12 @@ a {
   text-decoration: none;
 }
 
-/* .footer_href {
-  text-decoration: none;
-  color: beige;
-} */
+@keyframes rotate {
+  from {
+    transform: rotateY(90deg);
+  }
+
+  to {
+    transform: rotateY(0deg);
+  }
+}
